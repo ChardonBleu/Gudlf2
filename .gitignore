@@ -2,7 +2,10 @@ bin
 include
 lib
 .Python
-tests/
 .envrc
 __pycache__
 env/
+htmlcov/
+.pytest_cache/
+.coverage
+flake-report/
