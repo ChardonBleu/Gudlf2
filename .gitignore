@@ -8,3 +8,4 @@ env/
 htmlcov/
 .pytest_cache/
 .coverage
+flake-report/
