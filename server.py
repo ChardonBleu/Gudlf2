@@ -61,9 +61,7 @@ def create_app(config):
 
     @app.route('/showSummary', methods=['GET'])
     def showSummary():
-        club = [
-            club for club in clubs if club['email'] == session['email']
-            ][0]
+        club = research_club_in_clubs(clubs, session['email'])
         
         return render_template('welcome.html',
                             club=club,
