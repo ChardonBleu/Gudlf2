@@ -27,6 +27,11 @@ def test_login_page_access_ok(client):
     response = client.get('/login')
     assert response.status_code == 200
 
+
+
+
+
+
 def test_logout_redirection(client):
     response = client.get('/logout')
     assert response.status_code == 302

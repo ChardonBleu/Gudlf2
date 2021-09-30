@@ -4,7 +4,7 @@
 {% block header %}
 
     <h1>Welcome to the GUDLFT Registration Portal!</h1>
-    
+
     {% if session.name %}
     <span>{{ session['name'] }}</span>
     <a href="{{ url_for('logout') }}">Log Out</a>
@@ -13,11 +13,24 @@
 {% endblock %}
 
 {%block body_main%}
+
+    {% with messages = get_flashed_messages()%}
+        {% if messages %}
+            <ul>
+        {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif%}
+
     <h2>Please enter your secretary email to login:</h2>
     
-    <form action="showSummary" method="post">
+    <form action="login" method="post">
         <label for="email">Email:</label>
         <input type="email" name="email" id=""/>
         <button type="submit">Login</button>
     </form>
+    
+    {%endwith%}
+
 {%endblock%}

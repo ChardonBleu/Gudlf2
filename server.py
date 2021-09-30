@@ -35,16 +35,33 @@ def create_app(config):
         return render_template('index.html')
 
 
-    @app.route('/login')
+    @app.route('/login', methods=('GET', 'POST'))
     def login():
+        if request.method == 'POST':
+            email = request.form['email']
+            try:
+                logged_club = [club for club in clubs if club['email'] == email][0]
+            except IndexError:
+                error = 'Unknown club. Sorry.'
+            else :
+                error = None
+            
+            if error is None:
+                session.clear()
+                session['email'] = email
+                return redirect(url_for('showSummary'))
+            
+            flash(error)
+        
         return render_template('login.html')
 
 
-    @app.route('/showSummary', methods=['POST'])
+    @app.route('/showSummary', methods=('GET'))
     def showSummary():
         club = [
-            club for club in clubs if club['email'] == request.form['email']
+            club for club in clubs if club['email'] == session['email']
             ][0]
+        session['name'] = club['name']
         return render_template('welcome.html',
                             club=club,
                             competitions=competitions)
