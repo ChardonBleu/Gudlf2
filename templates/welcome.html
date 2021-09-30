@@ -1,8 +1,13 @@
 {%extends "base.html"%}
 
-{%block body_main%}
+{% block title %}Welcome{% endblock %}
 
-        <h2>Welcome, {{club['email']}} </h2><a href="{{url_for('logout')}}">Logout</a>
+{% block header %}    
+    <h2>Welcome, {{club['email']}} </h2><a href="{{url_for('logout')}}">Logout</a>
+{% endblock %}
+
+{%block body_main%}
+        
 
     {% with messages = get_flashed_messages()%}
     {% if messages %}

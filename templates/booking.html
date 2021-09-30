@@ -1,8 +1,15 @@
 {%extends "base.html"%}
 
-{%block body_main%}
+{% block title %}Booking{% endblock %}
+
+{% block header %}
+    
     <h2>{{competition['name']}}</h2>
     Places available: {{competition['numberOfPlaces']}}
+{% endblock %}
+
+{%block body_main%}
+
     <form action="/purchasePlaces" method="post">
         <input type="hidden" name="club" value="{{club['name']}}">
         <input type="hidden" name="competition" value="{{competition['name']}}">

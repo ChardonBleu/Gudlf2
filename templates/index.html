@@ -1,12 +1,22 @@
 
 {%extends "base.html"%}
+{% block title %}Index - Login{% endblock %}
+{% block header %}
+    
+    <h1>Welcome to the GUDLFT Registration Portal!</h1>
+
+
+        {% if session.name %}
+        <span>{{ session['name'] }}</span>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {%else%}
+        <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+
+{% endblock %}
 
 {%block body_main%}
-    <h1>Welcome to the GUDLFT Registration Portal!</h1>
-    Please enter your secretary email to continue:
-    <form action="showSummary" method="post">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id=""/>
-        <button type="submit">Enter</button>
-    </form>
+    <h2>Here is clubs statistics:</h2>
+    <!--    ICI VIENDRA LE TABLEAU            -->
+
 {%endblock%}

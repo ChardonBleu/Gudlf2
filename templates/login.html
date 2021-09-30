@@ -1,0 +1,23 @@
+
+{%extends "base.html"%}
+{% block title %}Login{% endblock %}
+{% block header %}
+
+    <h1>Welcome to the GUDLFT Registration Portal!</h1>
+    
+    {% if session.name %}
+    <span>{{ session['name'] }}</span>
+    <a href="{{ url_for('logout') }}">Log Out</a>
+    {% endif %}
+
+{% endblock %}
+
+{%block body_main%}
+    <h2>Please enter your secretary email to login:</h2>
+    
+    <form action="showSummary" method="post">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id=""/>
+        <button type="submit">Login</button>
+    </form>
+{%endblock%}
