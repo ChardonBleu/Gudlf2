@@ -5,10 +5,7 @@
 
     <h1>Welcome to the GUDLFT Registration Portal!</h1>
 
-    {% if session.name %}
-    <span>{{ session['name'] }}</span>
-    <a href="{{ url_for('logout') }}">Log Out</a>
-    {% endif %}
+
 
 {% endblock %}
 
@@ -22,7 +19,10 @@
             {% endfor %}
         </ul>
         {% endif%}
-
+    {% if session.name %}
+    <span>{{ session['name'] }}</span>
+    <a href="{{ url_for('logout') }}">Log Out</a>
+    {% else %}
     <h2>Please enter your secretary email to login:</h2>
     
     <form action="login" method="post">
@@ -30,7 +30,8 @@
         <input type="email" name="email" id=""/>
         <button type="submit">Login</button>
     </form>
-    
+    {% endif %}
+
     {%endwith%}
 
 {%endblock%}
