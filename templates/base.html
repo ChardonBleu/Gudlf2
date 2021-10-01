@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUDLFT registration portal - {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+    <nav>
+    {% if session.name %}
+        <span>{{ session['name'] }}</span>
+        <a href="{{ url_for('logout') }}">Logout</a>|
+        <a href="{{ url_for('welcome') }}">Welcome</a>|
+        <a href="{{ url_for('showSummary') }}">Competitions</a>|
+        {% endif %}
+        {% block nav %}{% endblock %}
+    
+    </nav>
+
+    {% block header %}{% endblock %}
+
+    </header>
+
+    {%block body_main%}{%endblock%}
+</body>
+</html>
