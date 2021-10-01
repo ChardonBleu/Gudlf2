@@ -15,7 +15,7 @@ def load_competitions():
         return listOfCompetitions
 
 
-def research_club_in_clubs(clubs, email):
+def research_club_in_clubs_by_email(clubs, email):
     return [club for club in clubs if club['email'] == email][0]
 
 
@@ -43,7 +43,7 @@ def create_app(config):
         if request.method == 'POST':
             email = request.form['email']
             try:
-                logged_club = research_club_in_clubs(clubs, email)
+                logged_club = research_club_in_clubs_by_email(clubs, email)
             except IndexError:
                 error = 'Unknown club. Sorry.'
             else:
@@ -60,7 +60,7 @@ def create_app(config):
 
     @app.route('/showSummary', methods=['GET'])
     def showSummary():
-        club = research_club_in_clubs(clubs, session['email'])
+        club = research_club_in_clubs_by_email(clubs, session['email'])
 
         return render_template('welcome.html',
                                club=club,

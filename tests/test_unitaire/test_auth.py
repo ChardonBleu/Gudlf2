@@ -1,7 +1,7 @@
 import pytest
 
 from flask import session
-from server import research_club_in_clubs
+from server import research_club_in_clubs_by_email
 
 
 @pytest.fixture
@@ -23,15 +23,15 @@ def clubs():
     return clubs
 
 
-def login(client, email):
+def _login(client, email):
     return(client.post('/login', data={'email': email}, follow_redirects=True))
 
-
+ 
 def test_root_status_ok(client):
     response = client.get('/')
     assert response.status_code == 200
 
-
+ 
 def test_index_status_ok(client):
     response = client.get('/index')
     assert response.status_code == 200
@@ -43,15 +43,15 @@ def test_login_page_access_ok(client):
 
 
 def test_research_clubs_in_clubs(clubs, club_one):
-    result = research_club_in_clubs(clubs, 'club_test1@mail.com')
+    result = research_club_in_clubs_by_email(clubs, 'club_test1@mail.com')
     assert result == club_one
 
 
 def test_login_succesful(client, club_one, mocker):
     client.get('/logout')
 
-    mocker.patch('server.research_club_in_clubs', return_value=club_one)
-    login(client, 'club_test1@mail.com')
+    mocker.patch('server.research_club_in_clubs_by_email', return_value=club_one)
+    _login(client, 'club_test1@mail.com')
 
     assert session['email'] == 'club_test1@mail.com'
 
@@ -59,7 +59,7 @@ def test_login_succesful(client, club_one, mocker):
 def test_login_unsuccesful(client):
     client.get('/logout')
 
-    response = login(client, 'pas_bon@mail.com')
+    response = _login(client, 'pas_bon@mail.com')
 
     assert response.status_code == 200
     assert b'Unknown club. Sorry.' in response.data
@@ -72,8 +72,8 @@ def test_logout_redirection(client):
 
 
 def test_logout_session_cleared(client, mocker, club_one):
-    mocker.patch('server.research_club_in_clubs', return_value=club_one)
-    login(client, 'club_test1@mail.com')
+    mocker.patch('server.research_club_in_clubs_by_email', return_value=club_one)
+    _login(client, 'club_test1@mail.com')
 
     client.get('/logout')
     assert session == {}
