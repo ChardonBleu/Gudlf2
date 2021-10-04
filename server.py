@@ -2,21 +2,8 @@ import json
 from flask import Flask, render_template, request, redirect, flash, url_for, \
     session
 
-
-def load_clubs():
-    with open('clubs.json') as c:
-        listOfClubs = json.load(c)['clubs']
-        return listOfClubs
-
-
-def load_competitions():
-    with open('competitions.json') as comps:
-        listOfCompetitions = json.load(comps)['competitions']
-        return listOfCompetitions
-
-
-def research_club_in_clubs_by_email(clubs, email):
-    return [club for club in clubs if club['email'] == email][0]
+from utilities.datas import load_clubs, load_competitions
+from utilities.datas import research_club_in_clubs_by_email
 
 
 def create_app(config):
