@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>GUDLFT registration portal - {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+    <nav>
+        {% block nav %}{% endblock %}
+        {% if session.name %}
+        <span>{{ session['name'] }}</span>        
+        <a href="{{ url_for('logout') }}">Logout</a>|
+        <a href="{{ url_for('welcome') }}">Welcome</a>|
+        <a href="{{ url_for('showSummary') }}">Competitions</a>
+        {% endif %}
+        
+    
+    </nav>
+
+    {% block header %}{% endblock %}
+
+    </header>
+
+    {%block body_main%}{%endblock%}
+</body>
+</html>

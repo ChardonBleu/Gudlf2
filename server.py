@@ -1,9 +1,21 @@
+import functools
+
 from flask import Flask, render_template, request, redirect
 from flask import flash, url_for, session
 
 from utilities.datas import load_clubs, load_competitions
 from utilities.datas import research_club_in_clubs_by_email
-from utilities.auth import login_required
+from utilities.datas import research_club_in_clubs_by_name
+from utilities.datas import research_competition_in_competitions_by_name
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if session == {}:
+            return redirect(url_for('login'))
+        return view(**kwargs)
+    return wrapped_view
 
 
 def create_app(config):
@@ -64,17 +76,19 @@ def create_app(config):
 
     @app.route('/book/<competition>/<club>')
     @login_required
-    def book(competition, club):
-        foundClub = [c for c in clubs if c['name'] == club][0]
-        foundCompetition = [c for c in competitions if c['name'] == competition][0]
-        if foundClub and foundCompetition:
+    def book(competition_name, club_name):
+        found_club = research_club_in_clubs_by_name(clubs, club_name)
+        found_competition = research_competition_in_competitions_by_name(
+            competitions, competition_name)
+        
+        if found_club and found_competition:
             return render_template('booking.html',
-                                   club=foundClub,
-                                   competition=foundCompetition)
+                                   club=found_club,
+                                   competition=found_competition)
         else:
             flash("Something went wrong-please try again")
             return render_template('competitions.html',
-                                   club=club,
+                                   club=found_club,
                                    competitions=competitions)
 
     @app.route('/purchasePlaces', methods=['POST'])
