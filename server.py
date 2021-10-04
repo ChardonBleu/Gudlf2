@@ -38,7 +38,6 @@ def create_app(config):
                 session.clear()
                 session['name'] = logged_club['name']
                 session['email'] = email
-                print(session)
                 return redirect(url_for('showSummary'))
 
             flash(error)
@@ -48,7 +47,6 @@ def create_app(config):
     @app.route('/showSummary', methods=['GET'])
     def showSummary():
         club = research_club_in_clubs_by_email(clubs, session['email'])
-
         return render_template('welcome.html',
                                club=club,
                                competitions=competitions)
