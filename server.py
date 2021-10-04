@@ -3,21 +3,9 @@ from flask import Flask, render_template, request, redirect, flash, url_for, \
     session
 import functools
 
-
-def load_clubs():
-    with open('clubs.json') as c:
-        listOfClubs = json.load(c)['clubs']
-        return listOfClubs
-
-
-def load_competitions():
-    with open('competitions.json') as comps:
-        listOfCompetitions = json.load(comps)['competitions']
-        return listOfCompetitions
-
-
-def research_club_in_clubs_by_email(clubs, email):
-    return [club for club in clubs if club['email'] == email][0]
+from utilities.datas import load_clubs, load_competitions
+from utilities.datas import research_club_in_clubs_by_email
+from utilities.decorators import login_required
 
 
 def create_app(config):
@@ -26,23 +14,8 @@ def create_app(config):
     app.config.from_object("config")
     app.config["Testing"] = False
 
-    # ########## Loading  datas from JSON files ################
-
     competitions = load_competitions()
     clubs = load_clubs()
-
-    # ########### decorator @login_required ############
-
-    def login_required(view):
-        @functools.wraps(view)
-        def wrapped_view(**kwargs):
-            if session == {}:
-                return redirect(url_for('login'))
-            return view(**kwargs)
-        return wrapped_view
-
-
-    # ################# ROUTING ###################
 
     @app.route('/')
     @app.route('/index')
