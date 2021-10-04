@@ -87,7 +87,7 @@ def create_app(config):
                                    competition=foundCompetition)
         else:
             flash("Something went wrong-please try again")
-            return render_template('welcome.html',
+            return render_template('competitions.html',
                                    club=club,
                                    competitions=competitions)
 
@@ -101,7 +101,7 @@ def create_app(config):
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])
         -placesRequired
         flash('Great-booking complete!')
-        return render_template('welcome.html',
+        return render_template('competitions.html',
                                club=club,
                                competitions=competitions)
 

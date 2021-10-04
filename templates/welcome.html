@@ -19,18 +19,26 @@
     {% endif%}
     Your points available: {{logged_club['points']}}
     <h3>All clubs points:</h3>
-    <ul>
-        {% for club in clubs%}
-        <li>
-            {{club['name']}}<br />
-            points: {{club['points']}}</br>
-            
-            
+    <div class="container">
+        <table class="table table-striped container">
+            <thead>
+                <tr>
+                    <th scope="col">Club name</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tboby>
+                {% for club in clubs%}
+                <tr scope="row">
+                    <td>{{club['name']}}</td>
+                    <td>{{club['points']}}</td>
 
-        </li>
-        <hr />
-        {% endfor %}
-    </ul>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
     {%endwith%}
 
 {%endblock%}
