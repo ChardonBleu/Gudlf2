@@ -46,7 +46,6 @@ def create_app(config):
                 session.clear()
                 session['name'] = logged_club['name']
                 session['email'] = email
-                print(session)
                 return redirect(url_for('welcome'))
 
             flash(error)
