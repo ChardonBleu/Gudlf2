@@ -25,6 +25,9 @@ def create_app(config):
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
+        """clubs data are memorized in session dict when login.
+        
+        """
         if request.method == 'POST':
             email = request.form['email']
             try:
@@ -36,7 +39,6 @@ def create_app(config):
                 session.clear()
                 session['name'] = logged_club['name']
                 session['email'] = email
-                print(session)
                 return redirect(url_for('welcome'))
 
             flash(error)
@@ -52,7 +54,7 @@ def create_app(config):
             [type] -- welcome page with points club display
         """
         logged_club = research_club_in_clubs_by_email(clubs, session['email'])
-
+        
         return render_template('welcome.html', logged_club=logged_club, clubs=clubs)
 
     @app.route('/showSummary', methods=['GET'])

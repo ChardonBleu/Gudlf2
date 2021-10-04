@@ -18,3 +18,21 @@ def club_one():
                 'email': 'club_test1@mail.com',
                 'points': '15'}
     return club_one
+
+
+@pytest.fixture
+def competitions():
+    competitions = [{"name": "Compet du printemps",
+                     "date": "2040-04-01 10:00:00",
+                     "numberOfPlaces": "30"},
+                    {"name": "Compet des gros costauds",
+                     "date": "2035-08-15 13:30:00",
+                     "numberOfPlaces": "18"}]
+    return competitions
+
+@pytest.fixture
+def competition_one():
+    competition_one = {"name": "Compet du printemps",
+                     "date": "2040-04-01 10:00:00",
+                     "numberOfPlaces": "30"}
+    return competition_one
