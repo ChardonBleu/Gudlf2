@@ -2,25 +2,8 @@ import pytest
 
 from flask import session
 
-
-
-@pytest.fixture
-def club_one():
-    club_one = {'name': 'club_test1_name',
-                'email': 'club_test1@mail.com',
-                'points': '15'}
-    return club_one
-
-
-@pytest.fixture
-def clubs():
-    clubs = [{'name': 'club_test1_name',
-              'email': 'club_test1@mail.com',
-              'points': '15'},
-             {'name': 'club_test2_name',
-              'email': 'club_test2@mail.com',
-              'points': '8'}]
-    return clubs
+from tests.fixtures import club_one, clubs
+from tests.conftest import client
 
 
 def _login(client, email):
