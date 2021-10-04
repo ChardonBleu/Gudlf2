@@ -25,7 +25,7 @@ def test_login_page_access_ok(client):
     assert response.status_code == 200
 
 
-def test_research_clubs_in_clubs(clubs, club_one):
+def test_research_clubs_in_clubs_by_email(clubs, club_one):
     result = research_club_in_clubs_by_email(clubs, 'club_test1@mail.com')
     assert result == club_one
 
