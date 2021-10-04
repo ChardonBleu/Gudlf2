@@ -105,8 +105,6 @@ def create_app(config):
                                club=club,
                                competitions=competitions)
 
-    # TODO: Add route for points display
-
     @app.route('/logout')
     def logout():
         session.clear()

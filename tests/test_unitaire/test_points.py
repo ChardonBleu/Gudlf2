@@ -34,3 +34,7 @@ def test_welcome(client, club_one, mocker):
     
     response = client.get('/welcome')
     assert response.status_code == 200
+
+def test_redirect_if_non_logged(client):
+    response = client.get('/welcome')
+    assert response.status_code == 302
