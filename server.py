@@ -74,7 +74,7 @@ def create_app(config):
                                club=club,
                                competitions=competitions)
 
-    @app.route('/book/<competition>/<club>')
+    @app.route('/book/<competition_name>/<club_name>')
     @login_required
     def book(competition_name, club_name):
         found_club = research_club_in_clubs_by_name(clubs, club_name)
