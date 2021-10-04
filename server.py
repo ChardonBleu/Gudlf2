@@ -1,6 +1,7 @@
 import json
 from flask import Flask, render_template, request, redirect, flash, url_for, \
     session
+import functools
 
 
 def load_clubs():
@@ -29,6 +30,17 @@ def create_app(config):
 
     competitions = load_competitions()
     clubs = load_clubs()
+
+    # ########### decorator @login_required ############
+
+    def login_required(view):
+        @functools.wraps(view)
+        def wrapped_view(**kwargs):
+            if session == {}:
+                return redirect(url_for('login'))
+            return view(**kwargs)
+        return wrapped_view
+
 
     # ################# ROUTING ###################
 
@@ -59,6 +71,7 @@ def create_app(config):
         return render_template('login.html')
 
     @app.route('/welcome', methods=['GET'])
+    @login_required
     def welcome():
         """It's necessary to be logged to acces this
 
@@ -70,6 +83,7 @@ def create_app(config):
         return render_template('welcome.html', logged_club=logged_club, clubs=clubs)
 
     @app.route('/showSummary', methods=['GET'])
+    @login_required
     def showSummary():
         club = research_club_in_clubs_by_email(clubs, session['email'])
 
@@ -78,6 +92,7 @@ def create_app(config):
                                competitions=competitions)
 
     @app.route('/book/<competition>/<club>')
+    @login_required
     def book(competition, club):
         foundClub = [c for c in clubs if c['name'] == club][0]
         foundCompetition = [c for c in competitions if c['name'] == competition][0]
@@ -92,6 +107,7 @@ def create_app(config):
                                    competitions=competitions)
 
     @app.route('/purchasePlaces', methods=['POST'])
+    @login_required
     def purchasePlaces():
         competition = [
             c for c in competitions if c['name'] == request.form['competition']
