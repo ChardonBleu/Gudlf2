@@ -15,7 +15,6 @@ def create_app(config):
     app.config["Testing"] = False
 
     competitions = load_competitions()
-    print(competitions)
     clubs = load_clubs()
 
     @app.route('/')
@@ -84,19 +83,17 @@ def create_app(config):
     @app.route('/purchasePlaces', methods=['POST'])
     @login_required
     def purchasePlaces():
-        print(competitions)
         competition = research_competition_in_competitions_by_name(
             competitions, request.form['competition'])
-        print(competition['numberOfPlaces'])
         club = research_club_in_clubs_by_name(clubs, request.form['club'])
         placesRequired = int(request.form['places'])
         competition['numberOfPlaces'] = int(
             competition['numberOfPlaces']) - placesRequired
         flash('Great-booking complete!')
-        print(competition['numberOfPlaces'])
         return render_template('competitions.html',
                                club=club,
-                               competitions=competitions)
+                               competitions=competitions,
+                               competition=competition)
 
     @app.route('/logout')
     def logout():

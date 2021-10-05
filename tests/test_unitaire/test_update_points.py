@@ -36,17 +36,30 @@ def test_redirect_when_unlogged(client, mocker,
     assert response.status_code == 302
 
 
-def test_update_points(logged_client, mocker, competitions, competition_one,
+def test_update_points(logged_client, mocker,competition_one,
                        club_one, captured_templates):
-    mocker.patch('utilities.datas.load_competitions', return_value=competitions)
-    mocker.patch('server.load_competitions', return_value=competitions)
-    
+    """The competition test list is :
+    [{"name": "Compet du printemps",
+                     "date": "2040-04-01 10:00:00",
+                     "numberOfPlaces": "30"},
+                    {"name": "Compet des gros costauds",
+                     "date": "2035-08-15 13:30:00",
+                     "numberOfPlaces": "18"}]
+    the test book 4 places to "compet du printemps".
+    It might est 26 places in "compet du printemps".
+
+    Arguments:
+        logged_client {test_client} -- client connecté 
+        mocker {mocking fixture} -- use to mock club and competition
+        competitions {list} -- fixture fot tests competitions
+        competition_one {dict} -- fixture for choosen competition
+        club_one {dict} -- fixture for logged club
+        captured_templates  -- fixture for capture of rendered templates
+    """
     mocker.patch('server.research_competition_in_competitions_by_name',
                  return_value=competition_one)
     mocker.patch('server.research_club_in_clubs_by_name',
                  return_value=club_one)
-    mocker.patch('utilities.datas.load_competitions', return_value=competitions)
-    mocker.patch('server.load_competitions', return_value=competitions)
     
     response = logged_client.post('/purchasePlaces',
                                   data={'competition': "Compet du printemps",
@@ -56,4 +69,5 @@ def test_update_points(logged_client, mocker, competitions, competition_one,
     assert len(captured_templates) == 1
     template, context = captured_templates[0]
     assert template.name == 'competitions.html'
-    print(context) 
+    assert context['competition']['numberOfPlaces'] == 26
+

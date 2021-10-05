@@ -5,11 +5,9 @@ from tests.fixtures import competitions, clubs, club_one
 
 
 @pytest.fixture
-def app(mocker, competitions):
+def app(mocker, competitions, clubs):
     mocker.patch('server.load_competitions',
                      return_value=competitions)
-    mocker.patch('server.load_clubs',
-                     return_value=clubs)
     app = create_app({"TESTING": True})
     return app
 
