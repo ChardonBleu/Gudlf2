@@ -1,12 +1,8 @@
 import pytest
 
-from flask import session
-
 from tests.fixtures import club_one
-from tests.conftest import client, logged_client
 
 
-    
 def test_welcome_for_display_points(logged_client, club_one, mocker):
     mocker.patch('server.research_club_in_clubs_by_email',
                  return_value=club_one)
