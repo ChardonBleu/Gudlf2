@@ -38,7 +38,6 @@ def create_app(config):
                 session.clear()
                 session['name'] = logged_club['name']
                 session['email'] = email
-                print(session)
                 return redirect(url_for('welcome'))
 
             flash(error)
@@ -72,13 +71,12 @@ def create_app(config):
         found_club = research_club_in_clubs_by_name(clubs, club_name)
         found_competition = research_competition_in_competitions_by_name(
             competitions, competition_name)
-        date_time_found_competition= datetime.strptime(
+        date_time_found_competition = datetime.strptime(
             found_competition['date'], '%Y-%m-%d %H:%M:%S')
-        now = datetime.now()
-        
-        if found_club and found_competition:
-            if date_time_found_competition > now:
                 
+        if found_club and found_competition:
+            if date_time_found_competition > datetime.now():
+                flash('You can book for this future competition.')
                 return render_template('booking.html',
                                     club=found_club,
                                     competition=found_competition)
