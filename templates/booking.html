@@ -1,17 +1,27 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking for {{competition['name']}} || GUDLFT</title>
-</head>
-<body>
+{%extends "base.html"%}
+
+{% block title %}Booking{% endblock %}
+
+
+{% block header %}
     <h2>{{competition['name']}}</h2>
     Places available: {{competition['numberOfPlaces']}}
+{% endblock %}
+
+{%block body_main%}
+
+    {% if session.name %}
+    <p>{{ session['name'] }} : Points available: {{club['points']}}</p>
+    
+    
     <form action="/purchasePlaces" method="post">
         <input type="hidden" name="club" value="{{club['name']}}">
         <input type="hidden" name="competition" value="{{competition['name']}}">
         <label for="places">How many places?</label><input type="number" name="places" id=""/>
         <button type="submit">Book</button>
     </form>
-</body>
-</html>
+    {% else %}
+    <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+   
+{%endblock%}
