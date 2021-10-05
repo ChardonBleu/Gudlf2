@@ -1,11 +1,11 @@
 import pytest
 from flask import template_rendered
 from server import create_app
-from tests.fixtures import competitions, clubs, club_one
+from tests.fixtures import competitions, club_one
 
 
 @pytest.fixture
-def app(mocker, competitions, clubs):
+def app(mocker, competitions):
     mocker.patch('server.load_competitions',
                      return_value=competitions)
     app = create_app({"TESTING": True})

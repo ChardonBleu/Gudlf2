@@ -4,9 +4,7 @@ from flask import Flask
 
 from server import research_club_in_clubs_by_name
 from server import research_competition_in_competitions_by_name
-from server import load_competitions
-from utilities.datas import load_competitions
-from tests.fixtures import club_one, clubs, competition_one, competitions
+from tests.fixtures import club_one, competition_one
 
 
 def test_status_code_ok_when_logged(logged_client, mocker,
