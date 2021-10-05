@@ -6,20 +6,29 @@ from server import research_competition_in_competitions_by_name
 from tests.fixtures import club_one, clubs, competition_one, competitions
 
 
-def test_status_code_ok_when_logged(logged_client, mocker):
+def test_status_code_ok_when_logged(logged_client, mocker,
+                                    club_one, competition_one):
     mocker.patch('server.research_competition_in_competitions_by_name',
                  return_value=competition_one)
-    mocker.patch('server.research_competition_in_clubs_by_name',
+    mocker.patch('server.research_club_in_clubs_by_name',
                  return_value=club_one)
-    response = logged_client.post('/purchasePlaces', data={'places': '4'})
+    response = logged_client.post('/purchasePlaces',
+                                  data={'competition': "Compet du printemps",
+                                        'club': 'club_test1_name',
+                                        'places': '4'})
     assert response.status_code == 200
     assert b'Great-booking complete!' in response.data
 
 
-def test_redirect_when_unlogged(client, mocker):
+def test_redirect_when_unlogged(client, mocker,
+                                club_one, competition_one):
     mocker.patch('server.research_competition_in_competitions_by_name',
                  return_value=competition_one)
-    mocker.patch('server.research_competition_in_clubs_by_name',
+    mocker.patch('server.research_club_in_clubs_by_name',
                  return_value=club_one)
-    response = client.post('/purchasePlaces', data={'places': '4'})
+    response = client.post('/purchasePlaces',
+                           data={'competition': "Compet du printemps",
+                                 'club': 'club_test1_name',
+                                 'places': '4'})
     assert response.status_code == 302
+
