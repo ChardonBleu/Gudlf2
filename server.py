@@ -15,6 +15,7 @@ def create_app(config):
     app.config["Testing"] = False
 
     competitions = load_competitions()
+    print(competitions)
     clubs = load_clubs()
 
     @app.route('/')
@@ -83,6 +84,7 @@ def create_app(config):
     @app.route('/purchasePlaces', methods=['POST'])
     @login_required
     def purchasePlaces():
+        print(competitions)
         competition = research_competition_in_competitions_by_name(
             competitions, request.form['competition'])
         print(competition['numberOfPlaces'])
