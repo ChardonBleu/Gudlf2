@@ -1,7 +1,7 @@
 
 {%extends "base.html"%}
 {% block title %}Index - Login{% endblock %}
-{% block nav %}{% if session == {} %}<a href="{{ url_for('login') }}">Login</a>{% endif %}{% endblock %}
+{% block nav %}<a href="{{ url_for('login') }}">Login</a>{% endblock %}
 {% block header %}
     
     <h1>Welcome to the GUDLFT Registration Portal!</h1>
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {%block body_main%}
-    <!--<h2>Here is clubs statistics:</h2>
-        ICI VIENDRA LE TABLEAU            -->
+    <h2>Here is clubs statistics:</h2>
+    <!--    ICI VIENDRA LE TABLEAU            -->
 
 {%endblock%}
