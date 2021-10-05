@@ -27,7 +27,10 @@ def competitions():
                      "numberOfPlaces": "30"},
                     {"name": "Compet des gros costauds",
                      "date": "2035-08-15 13:30:00",
-                     "numberOfPlaces": "18"}]
+                     "numberOfPlaces": "18"},
+                    {"name": "Compet des vieux balèzes",
+                     "date": "2018-08-15 13:30:00",
+                     "numberOfPlaces": "23"}]
     return competitions
 
 
@@ -37,3 +40,11 @@ def competition_one():
                        "date": "2040-04-01 10:00:00",
                        "numberOfPlaces": "30"}
     return competition_one
+
+
+@pytest.fixture
+def competition_past():
+    competition_past = {"name": "Compet des vieux balèzes",
+                     "date": "2018-08-15 13:30:00",
+                     "numberOfPlaces": "23"}
+    return competition_past
