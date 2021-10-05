@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask, render_template, request, redirect
 from flask import flash, url_for, session
 
@@ -70,11 +72,20 @@ def create_app(config):
         found_club = research_club_in_clubs_by_name(clubs, club_name)
         found_competition = research_competition_in_competitions_by_name(
             competitions, competition_name)
-
+        date_time_found_competition= datetime.strptime(
+            found_competition['date'], '%Y-%m-%d %H:%M:%S')
+        now = datetime.now()
+        
         if found_club and found_competition:
-            return render_template('booking.html',
+            if date_time_found_competition > now:                
+                return render_template('booking.html',
+                                    club=found_club,
+                                    competition=found_competition)
+            else:
+                flash('This competition is passed. Choice another.')
+                return render_template('competitions.html',
                                    club=found_club,
-                                   competition=found_competition)
+                                   competitions=competitions)
         else:
             flash("Something went wrong-please try again")
             return render_template('competitions.html',
@@ -84,9 +95,10 @@ def create_app(config):
     @app.route('/purchasePlaces', methods=['POST'])
     @login_required
     def purchasePlaces():
-        competition = research_competition_in_competitions_by_name(
-            competitions, request.form['competition'])
-        club = research_club_in_clubs_by_name(clubs, request.form['club'])
+        competition = [
+            c for c in competitions if c['name'] == request.form['competition']
+            ][0]
+        club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
         competition['numberOfPlaces'] = int(
             competition['numberOfPlaces']) - placesRequired
