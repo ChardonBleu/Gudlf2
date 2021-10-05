@@ -77,7 +77,8 @@ def create_app(config):
         now = datetime.now()
         
         if found_club and found_competition:
-            if date_time_found_competition > now:                
+            if date_time_found_competition > now:
+                
                 return render_template('booking.html',
                                     club=found_club,
                                     competition=found_competition)
