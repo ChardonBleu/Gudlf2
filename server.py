@@ -85,11 +85,11 @@ def create_app(config):
     def purchasePlaces():
         competition = research_competition_in_competitions_by_name(
             competitions, request.form['competition'])
+        print(competition['numberOfPlaces'])
         club = research_club_in_clubs_by_name(clubs, request.form['club'])
-
         placesRequired = int(request.form['places'])
-        competition['numberOfPlaces'] = int(competition['numberOfPlaces'])
-        -placesRequired
+        competition['numberOfPlaces'] = int(
+            competition['numberOfPlaces']) - placesRequired
         flash('Great-booking complete!')
         return render_template('competitions.html',
                                club=club,
