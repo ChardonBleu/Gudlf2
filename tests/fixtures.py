@@ -30,10 +30,10 @@ def competitions():
                      "numberOfPlaces": "18"}]
     return competitions
 
+
 @pytest.fixture
 def competition_one():
     competition_one = {"name": "Compet du printemps",
-                     "date": "2040-04-01 10:00:00",
-                     "numberOfPlaces": "30"}
+                       "date": "2040-04-01 10:00:00",
+                       "numberOfPlaces": "30"}
     return competition_one
-
