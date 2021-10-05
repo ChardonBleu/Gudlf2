@@ -7,7 +7,16 @@
 </head>
 <body>
     <header>
-
+    <nav>
+    {% if session.name %}
+        <span>{{ session['name'] }}</span>
+        <a href="{{ url_for('logout') }}">Logout</a>|
+        <a href="{{ url_for('welcome') }}">Welcome</a>|
+        <a href="{{ url_for('showSummary') }}">Competitions</a>|
+        {% endif %}
+        {% block nav %}{% endblock %}
+    
+    </nav>
 
     {% block header %}{% endblock %}
 

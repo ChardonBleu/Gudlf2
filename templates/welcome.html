@@ -3,7 +3,7 @@
 {% block title %}Welcome{% endblock %}
 
 {% block header %}    
-    <h2>Welcome, {{club['email']}}. You're logged in</h2><a href="{{url_for('logout')}}">Logout</a>
+    <h2>Welcome, {{logged_club['email']}}. You're logged in</h2>
 {% endblock %}
 
 
@@ -17,21 +17,28 @@
         {% endfor %}
        </ul>
     {% endif%}
-    Points available: {{club['points']}}
-    <h3>Competitions:</h3>
-    <ul>
-        {% for comp in competitions%}
-        <li>
-            {{comp['name']}}<br />
-            Date: {{comp['date']}}</br>
-            Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0%}
-            <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-            {%endif%}
-        </li>
-        <hr />
-        {% endfor %}
-    </ul>
+    Your points available: {{logged_club['points']}}
+    <h3>All clubs points:</h3>
+    <div class="container">
+        <table class="table table-striped container">
+            <thead>
+                <tr>
+                    <th scope="col">Club name</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tboby>
+                {% for club in clubs%}
+                <tr scope="row">
+                    <td>{{club['name']}}</td>
+                    <td>{{club['points']}}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
     {%endwith%}
 
 {%endblock%}
