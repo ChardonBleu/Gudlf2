@@ -47,4 +47,4 @@ def competition_past():
     competition_past = {"name": "Compet des vieux balèzes",
                      "date": "2018-08-15 13:30:00",
                      "numberOfPlaces": "23"}
-    return competition_pastne
+    return competition_past
