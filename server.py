@@ -92,6 +92,11 @@ def create_app(config):
             return render_template('booking.html',
                                    club=club,
                                    competition=competition)
+        elif placesRequired > int(competition['numberOfPlaces']):
+            flash('Not enough places avalaible. Sorry')
+            return render_template('booking.html',
+                                   club=club,
+                                   competition=competition)
         else:            
             competition['numberOfPlaces'] = int(
                 competition['numberOfPlaces']) - placesRequired
