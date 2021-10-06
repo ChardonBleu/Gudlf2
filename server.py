@@ -93,7 +93,8 @@ def create_app(config):
         flash('Great-booking complete!')
         return render_template('competitions.html',
                                club=club,
-                               competitions=competitions)
+                               competitions=competitions,
+                               competition=competition)
 
     @app.route('/logout')
     def logout():
