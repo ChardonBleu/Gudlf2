@@ -87,13 +87,19 @@ def create_app(config):
             competitions, request.form['competition'])
         club = research_club_in_clubs_by_name(clubs, request.form['club'])
         placesRequired = int(request.form['places'])
-        competition['numberOfPlaces'] = int(
-            competition['numberOfPlaces']) - placesRequired
-        flash('Great-booking complete!')
-        return render_template('competitions.html',
-                               club=club,
-                               competitions=competitions,
-                               competition=competition)
+        if placesRequired > club['points']:
+            flash()
+            return render_template('booking.html',
+                                   club=club,
+                                   competition=competition)
+        else:            
+            competition['numberOfPlaces'] = int(
+                competition['numberOfPlaces']) - placesRequired
+            flash('Great-booking complete!')
+            return render_template('competitions.html',
+                                club=club,
+                                competitions=competitions,
+                                competition=competition)
 
     @app.route('/logout')
     def logout():
