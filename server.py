@@ -36,7 +36,6 @@ def create_app(config):
                 session.clear()
                 session['name'] = logged_club['name']
                 session['email'] = email
-                print(session)
                 return redirect(url_for('welcome'))
 
             flash(error)
@@ -89,12 +88,18 @@ def create_app(config):
         club = research_club_in_clubs_by_name(clubs, request.form['club'])
         
         placesRequired = int(request.form['places'])
-        competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
-        flash('Great-booking complete!')
-        return render_template('competitions.html',
-                               club=club,
-                               competitions=competitions,
-                               competition=competition)
+        if placesRequired > 0 and placesRequired <= 12:
+            competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
+            flash('Great-booking complete!')
+            return render_template('competitions.html',
+                                club=club,
+                                competitions=competitions,
+                                competition=competition)
+        else:
+            flash("You can only book places between 0 ans 12.")
+            return render_template('booking.html',
+                                   club=club,
+                                   competition=competition)
 
     @app.route('/logout')
     def logout():
