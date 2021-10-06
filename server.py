@@ -21,9 +21,7 @@ def create_app(config):
     @app.route('/index')
     def index():
 
-        return render_template('index.html',
-                               clubs=clubs,
-                               competitions=competitions)
+        return render_template('index.html', clubs=clubs)
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
