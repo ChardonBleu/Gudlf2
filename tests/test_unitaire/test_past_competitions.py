@@ -21,7 +21,7 @@ def test_past_competition_purchase_non_authorized(logged_client, mocker,
 
 
 def test_future_competition_purchase_authorized(logged_client, mocker,
-                                                  club_one, competition_one):
+                                                club_one, competition_one):
     mocker.patch('server.research_club_in_clubs_by_name',
                  return_value=club_one)
 
@@ -30,4 +30,4 @@ def test_future_competition_purchase_authorized(logged_client, mocker,
 
     response = logged_client.get('/book/<competition_name>/<club_name>')
     assert response.status_code == 200
-    assert b'<button type="submit">Book</button>' in response.data
+    assert b'You can book for this future competition.' in response.data

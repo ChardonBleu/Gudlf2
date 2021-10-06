@@ -10,6 +10,15 @@
 
 {%block body_main%}
 
+    {% with messages = get_flashed_messages()%}
+        {% if messages %}
+            <ul>
+        {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif%}
+
     {% if session.name %}
     <p>{{ session['name'] }} : Points available: {{club['points']}}</p>
     
@@ -23,5 +32,6 @@
     {% else %}
     <a href="{{ url_for('login') }}">Login</a>
     {% endif %}
+    {%endwith%}
    
 {%endblock%}
