@@ -10,7 +10,25 @@
 {% endblock %}
 
 {%block body_main%}
-    <h2>Here is clubs statistics:</h2>
-    <!--    ICI VIENDRA LE TABLEAU            -->
+    <h2>Here are clubs statistics:</h2>
+    <div class="container">
+        <table class="table table-striped container">
+            <thead>
+                <tr>
+                    <th scope="col">Club name</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tboby>
+                {% for club in clubs%}
+                <tr scope="row">
+                    <td>{{club['name']}}</td>
+                    <td>{{club['points']}}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {%endblock%}
