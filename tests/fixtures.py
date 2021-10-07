@@ -24,7 +24,7 @@ def club_one():
 def competitions():
     competitions = [{"name": "Compet du printemps",
                      "date": "2040-04-01 10:00:00",
-                     "numberOfPlaces": "30"},
+                     "numberOfPlaces": "10"},
                     {"name": "Compet des gros costauds",
                      "date": "2035-08-15 13:30:00",
                      "numberOfPlaces": "18"},
@@ -38,7 +38,7 @@ def competitions():
 def competition_one():
     competition_one = {"name": "Compet du printemps",
                        "date": "2040-04-01 10:00:00",
-                       "numberOfPlaces": "30"}
+                       "numberOfPlaces": "10"}
     return competition_one
 
 
