@@ -8,14 +8,15 @@ def test_purchase_places_with_update_points(client, mocker, competition_one,
     If he tries to book more than 12 places he receive an alert message.
     He stays on booking page and he can try again.
     If he purchase for less than 12 places he is redirected to competitions
-    page with a confirmation message and competition places are updated. 
+    page with a confirmation message and competition places are updated.
 
     Arguments:
-        client {[type]} -- [description]
-        mocker {[type]} -- [description]
-        competition_one {[type]} -- [description]
-        club_one {[type]} -- [description]
-        captured_templates {[type]} -- [description]
+        client {[type]} -- unlogged client
+        mocker {[type]} -- used to mock logged club
+        club_one {[type]} -- logged club
+        competition_one {[type]} -- selected competition for booking
+        captured_templates {[type]} -- used to control rendered template
+        competition_past {[type]} -- competition with date in past
     """
     response = client.get('/login')
     assert response.status_code == 200
@@ -57,4 +58,5 @@ def test_purchase_places_with_update_points(client, mocker, competition_one,
                            follow_redirects=True)
     template5, context5 = captured_templates[4]
     assert template5.name == "competitions.html"
-    assert context4['competition']['numberOfPlaces'] == initial_competition_places - booked_places
+    assert context5['competition'][
+          'numberOfPlaces'] == initial_competition_places - booked_places
