@@ -40,4 +40,3 @@ def test_unsuccesful_login_route(client, mocker):
     assert response.status_code == 200
     assert b'Unknown club. Sorry.' in response.data
     assert session == {}
-    
