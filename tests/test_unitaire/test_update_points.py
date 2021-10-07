@@ -1,4 +1,3 @@
-from os import stat_result
 import pytest
 from flask import Flask
 
@@ -63,5 +62,4 @@ def test_update_points_club(logged_client, mocker,competition_one,
     assert response.status_code == 200    
     assert len(captured_templates) == 1
     template, context = captured_templates[0]
-    assert template.name == 'competitions.html'
-    assert context['club']['points'] == 11
+    assert context['club']['points'] == (15 - 4)
