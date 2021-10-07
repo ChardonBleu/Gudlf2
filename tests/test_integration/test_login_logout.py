@@ -1,5 +1,4 @@
 from flask import session
-from server import research_club_in_clubs_by_email
 from tests.fixtures import club_one, clubs
 
 
@@ -41,17 +40,28 @@ def test_successful_login_logout_route(client, mocker, club_one,
     assert template3.name == 'index.html'
 
 
-def test_unsuccesful_login_route(client, mocker):
+def test_unsuccessful_login_route(client, captured_templates):
+    """If loggin unsuccessful, user can try again on login page.
+
+    Arguments:
+        client {[type]} -- unlogged client
+    """
     client.get('/logout')
 
     response = client.get('/')
     assert response.status_code == 200
+    template0, context0 = captured_templates[0]
+    assert template0.name == 'index.html'
 
     response = client.get('/login')
     assert response.status_code == 200
+    template1, context1 = captured_templates[1]
+    assert template1.name == 'login.html'
 
     response = client.post('/login', data={'email': 'pas_bon1@mail.com'},
                            follow_redirects=True)
     assert response.status_code == 200
     assert b'Unknown club. Sorry.' in response.data
     assert session == {}
+    template2, context2 = captured_templates[2]
+    assert template2.name == 'login.html'

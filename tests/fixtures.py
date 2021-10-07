@@ -38,7 +38,7 @@ def competitions():
 def competition_one():
     competition_one = {"name": "Compet du printemps",
                        "date": "2040-04-01 10:00:00",
-                       "numberOfPlaces": "30"}
+                       "numberOfPlaces": "10"}
     return competition_one
 
 
