@@ -1,5 +1,3 @@
-import pytest
-
 from server import research_club_in_clubs_by_name
 from server import research_competition_in_competitions_by_name
 from tests.fixtures import club_one, clubs, competition_one, competitions
@@ -12,8 +10,9 @@ def test_research_clubs_in_clubs_by_name(clubs, club_one):
 
 def test_research_competition_in_competitions_by_name(competitions,
                                                       competition_one):
-    result = research_competition_in_competitions_by_name(competitions,
-                                                          "Compet du printemps")
+    result = research_competition_in_competitions_by_name(
+        competitions,
+        "Compet du printemps")
     assert result == competition_one
 
 
