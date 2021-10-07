@@ -9,7 +9,7 @@ def test_welcome_for_display_points(logged_client, club_one, mocker):
     response = logged_client.get('/welcome')
     assert response.status_code == 200
     assert b'All clubs points:' in response.data
-    assert b' <td>Iron Temple</td>\n                    <td>4</td>' in response.data
+    assert b'<td>club_test1_name</td>\n                    <td>15</td>' in response.data
 
 
 def test_redirect_if_non_logged(client):
