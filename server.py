@@ -46,7 +46,6 @@ def create_app(config):
     @login_required
     def welcome():
         """It's necessary to be logged to acces this
-
         Returns:
             [type] -- welcome page with points club display
         """
