@@ -1,14 +1,20 @@
-from os import stat_result
-import pytest
-from flask import Flask
-
-from server import research_club_in_clubs_by_name
-from server import research_competition_in_competitions_by_name
 from tests.fixtures import club_one, competition_past, competition_one
 
 
 def test_past_competition_route(client, mocker, club_one, competition_one,
                                 captured_templates, competition_past):
+    """after login when a user arrive on competitions page he can chose a
+    competition to book places on it.
+    He can't choose passed competition.
+
+    Arguments:
+        client {[type]} -- unlogged client
+        mocker {[type]} -- used to mock logged club
+        club_one {[type]} -- logged club
+        competition_one {[type]} -- selected competition for booking
+        captured_templates {[type]} -- used to control rendered template
+        competition_past {[type]} -- competition with date in past
+    """
 
     response = client.get('/login')
     assert response.status_code == 200
@@ -17,8 +23,9 @@ def test_past_competition_route(client, mocker, club_one, competition_one,
 
     mocker.patch('server.research_club_in_clubs_by_email',
                  return_value=club_one)
-    response = client.post('/login', data={'email': 'club_test1@mail.com'},
-                follow_redirects=True)
+    response = client.post('/login',
+                           data={'email': 'club_test1@mail.com'},
+                           follow_redirects=True)
     template2, context2 = captured_templates[1]
     assert template2.name == "welcome.html"
 
