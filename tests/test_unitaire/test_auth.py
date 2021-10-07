@@ -1,5 +1,3 @@
-import pytest
-
 from flask import session
 from server import research_club_in_clubs_by_email
 from tests.fixtures import club_one, clubs
