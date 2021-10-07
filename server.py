@@ -70,11 +70,11 @@ def create_app(config):
     def book(competition_name, club_name):
         found_club = research_club_in_clubs_by_name(clubs, club_name)
         found_competition = research_competition_in_competitions_by_name(
-            competitions, competition_name)
-        date_time_found_competition = datetime.strptime(
-            found_competition['date'], '%Y-%m-%d %H:%M:%S')
+            competitions, competition_name)        
                 
         if found_club and found_competition:
+            date_time_found_competition = datetime.strptime(
+            found_competition['date'], '%Y-%m-%d %H:%M:%S')
             if date_time_found_competition > datetime.now():
                 flash('You can book for this future competition.')
                 return render_template('booking.html',
