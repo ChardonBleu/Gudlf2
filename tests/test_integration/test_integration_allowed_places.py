@@ -7,7 +7,7 @@ from tests.fixtures import club_one, competition_one
 
 
 def test_purchase_places_with_update_points(client, mocker,
-                                            club_one,
+                                            club_one, competition_one,
                                             captured_templates):
     """
     {'name': 'club_test1_name',
@@ -32,9 +32,7 @@ def test_purchase_places_with_update_points(client, mocker,
     assert template2.name == "welcome.html"
 
     mocker.patch('server.research_competition_in_competitions_by_name',
-                 return_value={"name": "Compet du printemps",
-                               "date": "2040-04-01 10:00:00",
-                               "numberOfPlaces": "10"})
+                 return_value=competition_one)
     mocker.patch('server.research_club_in_clubs_by_name',
                  return_value=club_one)
 

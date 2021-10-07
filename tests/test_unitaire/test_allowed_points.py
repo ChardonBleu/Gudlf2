@@ -86,9 +86,7 @@ def test_book_more_than_competition_places(logged_client, mocker,
         club_one {dict} -- fixture for logged club
     """
     mocker.patch('server.research_competition_in_competitions_by_name',
-                 return_value={"name": "Compet du printemps",
-                               "date": "2040-04-01 10:00:00",
-                               "numberOfPlaces": "10"})
+                 return_value=competition_one)
     mocker.patch('server.research_club_in_clubs_by_name',
                  return_value=club_one)
     
