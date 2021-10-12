@@ -12,7 +12,6 @@ def create_app(config):
 
     app = Flask(__name__)
     app.config.from_object("config")
-    app.config["Testing"] = False
 
     competitions = load_competitions()
     clubs = load_clubs()
@@ -102,3 +101,8 @@ def create_app(config):
         return redirect(url_for('index'))
 
     return app
+
+app = create_app({"TESTING": False})
+
+if __name__ == "__main__":
+    app.run()
