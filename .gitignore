@@ -7,5 +7,5 @@ __pycache__
 venv/
 htmlcov/
 .pytest_cache/
-.coverage
+.coverage*
 flake-report/
