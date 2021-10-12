@@ -101,3 +101,8 @@ def create_app(config):
         return redirect(url_for('index'))
 
     return app
+
+app = create_app({"TESTING": False})
+
+if __name__ == "__main__":
+    app.run()
