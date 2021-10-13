@@ -1,28 +1,29 @@
-import urllib3
-from flask import Flask
+import time
+
+import pytest
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from flask_testing import LiveServerTestCase
-from selenium.webdriver import Chrome
 
 from server import create_app
 
 
 class TestBase(LiveServerTestCase):
+
     def create_app(self):
         app = create_app({"TESTING": True})
-        print('****createUp******') 
+        app.config.update(
+            LIVESERVER_PORT=8943
+        )
         return app
 
-    
     def setUp(self):
-        print('****setUp******')    
-        # self.driver = Chrome(executable_path='tests/test_fonctionnel/chromedriver.exe')
-        # self.driver.get(self.live_server_url())
-    
-    def tearDown(self):
-        print('****tearDown******')
-        # self.driver.quit()
-        
-    
-    def test_open_chrome_window(self):
-        print('****test******')
+        """Setup the test driver and create test users"""
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())  
 
+    def tearDown(self):
+        self.driver.quit()
+
+    def test_server_is_up_and_running(self):
+        response = self.driver.get(self.get_server_url() + "/index")
+        time.sleep(2)
