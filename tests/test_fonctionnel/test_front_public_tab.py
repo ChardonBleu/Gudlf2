@@ -25,5 +25,6 @@ class TestBase(LiveServerTestCase):
         self.driver.quit()
 
     def test_server_is_up_and_running(self):
-        response = self.driver.get(self.get_server_url() + "/index")
-        time.sleep(2)
+        self.driver.get(self.get_server_url() + "/index")
+        h2 = self.driver.find_element_by_tag_name('h2').text
+        assert h2 == 'Here is clubs statistics:'
