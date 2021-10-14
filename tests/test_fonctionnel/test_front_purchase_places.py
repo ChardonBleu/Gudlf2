@@ -25,7 +25,17 @@ def test_purchase_places():
     driver.get('http://127.0.0.1:5000/login')
     email = driver.find_element_by_name('email')
     email.send_keys('admin@irontemple.com')
-    driver.find_element_by_id('submit').click()
+    driver.find_element_by_tag_name('button').click()
     driver.get('http://127.0.0.1:5000/showSummary')
-    time.sleep(2)    
+    points_club_before = driver.find_element_by_id('points').text
+    assert points_club_before == 'Points available: 4'
+    time.sleep(2)
+    driver.find_elements_by_link_text('Book Places')[0].click()
+    time.sleep(2)
+    places = driver.find_element_by_name('places')
+    places.send_keys('2')
+    driver.find_element_by_tag_name('button').click()
+    points_club_after = driver.find_element_by_id('points').text
+    assert points_club_after == 'Points available: 2'
+    time.sleep(2)
     driver.quit()

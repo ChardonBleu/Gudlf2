@@ -5,7 +5,7 @@
 
 {% block header %}
     <h2>{{competition['name']}}</h2>
-    Places available: {{competition['numberOfPlaces']}}
+    <p id="places">Places available: {{competition['numberOfPlaces']}}</p>
 {% endblock %}
 
 {%block body_main%}
@@ -20,7 +20,7 @@
         {% endif%}
 
     {% if session.name %}
-    <p>{{ session['name'] }} : Points available: {{club['points']}}</p>
+    <p id="points">{{ session['name'] }} : Points available: {{club['points']}}</p>
     
     
     <form action="/purchasePlaces" method="post">

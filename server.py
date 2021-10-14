@@ -13,8 +13,27 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object("config")
 
-    competitions = load_competitions()
-    clubs = load_clubs()
+    print('*********', app.config['SERVER_NAME'], '************')
+    
+    if app.config['TESTING']:
+        competitions = [{"name": "Compet du printemps",
+                     "date": "2040-04-01 10:00:00",
+                     "numberOfPlaces": "10"},
+                    {"name": "Compet des gros costauds",
+                     "date": "2035-08-15 13:30:00",
+                     "numberOfPlaces": "18"},
+                    {"name": "Compet des vieux balèzes",
+                     "date": "2018-08-15 13:30:00",
+                     "numberOfPlaces": "23"}]
+        clubs = [{'name': 'club_test1_name',
+              'email': 'club_test1@mail.com',
+              'points': '15'},
+             {'name': 'club_test2_name',
+              'email': 'club_test2@mail.com',
+              'points': '8'}]
+    else:
+        competitions = load_competitions()
+        clubs = load_clubs()        
 
     @app.route('/')
     @app.route('/index')
