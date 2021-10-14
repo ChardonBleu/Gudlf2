@@ -1,5 +1,7 @@
 import pytest
-from flask import template_rendered
+
+
+from flask import template_rendered, current_app
 from server import create_app
 from tests.fixtures import competitions, club_one, clubs
 
@@ -43,3 +45,5 @@ def captured_templates(app):
         yield recorded
     finally:
         template_rendered.disconnect(record, app)
+
+
