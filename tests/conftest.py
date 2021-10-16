@@ -25,7 +25,7 @@ def logged_client(app, mocker, club_one):
     with app.test_client() as client:        
         mocker.patch('server.research_club_in_clubs_by_email',
                      return_value=club_one)
-        
+
         client.post('/login',
                     data={'email': 'club_test1_name'},
                     follow_redirects=True)
