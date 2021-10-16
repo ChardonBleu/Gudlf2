@@ -9,6 +9,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture(scope="session", autouse=True)
 def live_server():
+    """Live server for selenium testing on WINDOWS.
+    Serve flask app without mocking.
+
+    Yields:
+        subprocess -- server for flask app 
+    """
     env = os.environ.copy()
     env["FLASK_APP"] = "server.py"
     env["FLASK_ENV"] = "development"
@@ -20,7 +26,21 @@ def live_server():
 
 
 @pytest.mark.usefixtures('live_server')
-def test_purchase_places():    
+def test_purchase_places():
+    """selenium test with real json datas.
+    logged user is club IronTemple:
+    {
+        "name":"Iron Temple",
+        "email": "admin@irontemple.com",
+        "points":"4"
+    }
+    This club purchases 2 places on competition:
+    {
+        "name": "Spring Festival",
+        "date": "2020-03-27 10:00:00",
+        "numberOfPlaces": "25"
+    }
+    """
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get('http://127.0.0.1:5000/login')
     email = driver.find_element_by_name('email')
