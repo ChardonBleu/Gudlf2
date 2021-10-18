@@ -1,8 +1,8 @@
 from tests.fixtures import club_one, competition_one
 
 
-def test_update_numberofplaces(logged_client, mocker,competition_one,
-                       club_one, captured_templates):
+def test_update_numberofplaces(logged_client, mocker, competition_one,
+                               club_one, captured_templates):
     """The competition test list is :
     [{"name": "Compet du printemps",
                      "date": "2040-04-01 10:00:00",
@@ -24,12 +24,12 @@ def test_update_numberofplaces(logged_client, mocker,competition_one,
                  return_value=competition_one)
     mocker.patch('server.research_club_in_clubs_by_name',
                  return_value=club_one)
-    
+
     response = logged_client.post('/purchasePlaces',
                                   data={'competition': "Compet du printemps",
                                         'club': 'club_test1_name',
                                         'places': '4'})
-    assert response.status_code == 200    
+    assert response.status_code == 200
     assert len(captured_templates) == 1
     template, context = captured_templates[0]
     assert template.name == 'competitions.html'
@@ -37,7 +37,7 @@ def test_update_numberofplaces(logged_client, mocker,competition_one,
 
 
 def test_no_more_than_12_places_booked(logged_client, mocker,
-                               competition_one, club_one):
+                                       competition_one, club_one):
     """The competition test list is :
     [{"name": "Compet du printemps",
                      "date": "2040-04-01 10:00:00",
@@ -49,7 +49,7 @@ def test_no_more_than_12_places_booked(logged_client, mocker,
     It mights remain 6 places in "compet du printemps".
 
     Arguments:
-        logged_client {test_client} -- client with logged user 
+        logged_client {test_client} -- client with logged user
         mocker {mocking fixture} -- use to mock club and competition
         competition_one {dict} -- fixture for choosen competition
         club_one {dict} -- fixture for logged club
@@ -59,10 +59,10 @@ def test_no_more_than_12_places_booked(logged_client, mocker,
                  return_value=competition_one)
     mocker.patch('server.research_club_in_clubs_by_name',
                  return_value=club_one)
-    
+
     response = logged_client.post('/purchasePlaces',
                                   data={'competition': "Compet du printemps",
                                         'club': 'club_test1_name',
                                         'places': '13'})
-    assert response.status_code == 200    
+    assert response.status_code == 200
     assert b'You can only book places between 0 ans 12.' in response.data
