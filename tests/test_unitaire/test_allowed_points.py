@@ -1,4 +1,5 @@
 from tests.fixtures import club_one, competition_one
+from server import BOOKING_PLACES_MULTIPLICATOR
 
 
 def test_book_more_than_points_club(logged_client, mocker,
@@ -35,8 +36,8 @@ def test_booking_ok(logged_client, mocker, competition_one,
     {'name': 'club_test1_name',
                 'email': 'club_test1@mail.com',
                 'points': '15'}
-    the test book 4 places to "compet du printemps".
-    It mights remain 0 places in poinst club.
+    the test book 3 places to "compet du printemps".
+    It mights remain 12 places in points club.
 
     Arguments:
         logged_client {test_client} -- client connecté
@@ -56,7 +57,7 @@ def test_booking_ok(logged_client, mocker, competition_one,
     assert response.status_code == 200
     assert b'Great-booking complete!' in response.data
     template, context = captured_templates[0]
-    assert context['club']['points'] == '12'
+    assert context['club']['points'] == str(15 - 3 * BOOKING_PLACES_MULTIPLICATOR)
 
 
 def test_book_more_than_competition_places(logged_client, mocker,

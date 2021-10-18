@@ -1,4 +1,5 @@
 from tests.fixtures import club_one, competition_one
+from server import BOOKING_PLACES_MULTIPLICATOR
 
 
 def test_purchase_places_with_update_points(client, mocker,
@@ -77,5 +78,6 @@ def test_purchase_places_with_update_points(client, mocker,
                            follow_redirects=True)
     template6, context6 = captured_templates[5]
     assert template6.name == "competitions.html"
-    assert context6['club']['points'] == '12'
+    assert context6['club']['points'] == str(
+        15 - 3 * BOOKING_PLACES_MULTIPLICATOR)
     assert context6['competition']['numberOfPlaces'] == '7'
