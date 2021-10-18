@@ -8,8 +8,10 @@ from utilities.datas import research_competition_in_competitions_by_name
 from utilities.decorators import login_required
 
 
-def create_app(config):
+BOOKING_PLACES_MULTIPLICATOR = 1
 
+def create_app(config):
+    
     app = Flask(__name__)
     app.config.from_object("config")
     app.config["Testing"] = False
