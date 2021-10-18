@@ -57,7 +57,8 @@ def test_booking_ok(logged_client, mocker, competition_one,
     assert response.status_code == 200
     assert b'Great-booking complete!' in response.data
     template, context = captured_templates[0]
-    assert context['club']['points'] == str(15 - 3 * BOOKING_PLACES_MULTIPLICATOR)
+    assert context['club']['points'] == str(
+        15 - 3 * BOOKING_PLACES_MULTIPLICATOR)
 
 
 def test_book_more_than_competition_places(logged_client, mocker,
