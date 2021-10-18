@@ -2,9 +2,34 @@ import subprocess
 import os
 import time
 
+from unittest.mock import patch
 import pytest
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+
+from server import load_competitions, load_clubs, research_club_in_clubs_by_email
+
+
+CLUBS = [{'name': 'club_test1_name',
+            'email': 'club_test1@mail.com',
+            'points': '15'},
+            {'name': 'club_test2_name',
+            'email': 'club_test2@mail.com',
+            'points': '8'}]
+
+CLUB_ONE = {'name': 'club_test1_name',
+                'email': 'club_test1@mail.com',
+                'points': '15'}
+
+COMPETITIONS = [{"name": "Compet du printemps",
+                    "date": "2040-04-01 10:00:00",
+                    "numberOfPlaces": "10"},
+                    {"name": "Compet des gros costauds",
+                    "date": "2035-08-15 13:30:00",
+                    "numberOfPlaces": "18"},
+                    {"name": "Compet des vieux balèzes",
+                    "date": "2018-08-15 13:30:00",
+                    "numberOfPlaces": "23"}]
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -44,11 +69,11 @@ def test_purchase_places():
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get('http://127.0.0.1:5000/login')
     email = driver.find_element_by_name('email')
-    email.send_keys('admin@irontemple.com')
+    email.send_keys('john@simplylift.co')
     driver.find_element_by_tag_name('button').click()
     driver.get('http://127.0.0.1:5000/showSummary')
     points_club_before = driver.find_element_by_id('points').text
-    assert points_club_before == 'Points available: 4'
+    assert points_club_before == 'Points available: 13'
     time.sleep(2)
     driver.find_elements_by_link_text('Book Places')[0].click()
     time.sleep(2)
@@ -56,6 +81,6 @@ def test_purchase_places():
     places.send_keys('2')
     driver.find_element_by_tag_name('button').click()
     points_club_after = driver.find_element_by_id('points').text
-    assert points_club_after == 'Points available: 2'
+    assert points_club_after != 'Points available: 13'
     time.sleep(2)
     driver.quit()

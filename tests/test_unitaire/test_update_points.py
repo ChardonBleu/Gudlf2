@@ -1,3 +1,4 @@
+from server import BOOKING_PLACES_MULTIPLICATOR
 from tests.fixtures import club_one, competition_one
 
 
@@ -57,4 +58,4 @@ def test_update_points_club(logged_client, mocker,competition_one,
     assert response.status_code == 200    
     assert len(captured_templates) == 1
     template, context = captured_templates[0]
-    assert context['club']['points'] == (15 - 4)
+    assert context['club']['points'] == (15 - 4 * BOOKING_PLACES_MULTIPLICATOR)
