@@ -2,34 +2,31 @@ import subprocess
 import os
 import time
 
-from unittest.mock import patch
 import pytest
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
-from server import load_competitions, load_clubs, research_club_in_clubs_by_email
-
 
 CLUBS = [{'name': 'club_test1_name',
-            'email': 'club_test1@mail.com',
-            'points': '15'},
-            {'name': 'club_test2_name',
-            'email': 'club_test2@mail.com',
-            'points': '8'}]
+          'email': 'club_test1@mail.com',
+          'points': '15'},
+         {'name': 'club_test2_name',
+          'email': 'club_test2@mail.com',
+          'points': '8'}]
 
 CLUB_ONE = {'name': 'club_test1_name',
-                'email': 'club_test1@mail.com',
-                'points': '15'}
+            'email': 'club_test1@mail.com',
+            'points': '15'}
 
 COMPETITIONS = [{"name": "Compet du printemps",
-                    "date": "2040-04-01 10:00:00",
-                    "numberOfPlaces": "10"},
-                    {"name": "Compet des gros costauds",
-                    "date": "2035-08-15 13:30:00",
-                    "numberOfPlaces": "18"},
-                    {"name": "Compet des vieux balèzes",
-                    "date": "2018-08-15 13:30:00",
-                    "numberOfPlaces": "23"}]
+                 "date": "2040-04-01 10:00:00",
+                 "numberOfPlaces": "10"},
+                {"name": "Compet des gros costauds",
+                 "date": "2035-08-15 13:30:00",
+                 "numberOfPlaces": "18"},
+                {"name": "Compet des vieux balèzes",
+                 "date": "2018-08-15 13:30:00",
+                 "numberOfPlaces": "23"}]
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -38,7 +35,7 @@ def live_server():
     Serve flask app without mocking.
 
     Yields:
-        subprocess -- server for flask app 
+        subprocess -- server for flask app
     """
     env = os.environ.copy()
     env["FLASK_APP"] = "server.py"
