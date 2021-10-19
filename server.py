@@ -10,8 +10,9 @@ from utilities.decorators import login_required
 
 BOOKING_PLACES_MULTIPLICATOR = 1
 
+
 def create_app(config):
-    
+
     app = Flask(__name__)
     app.config.from_object("config")
     app.config["Testing"] = False
@@ -54,7 +55,9 @@ def create_app(config):
         """
         logged_club = research_club_in_clubs_by_email(clubs, session['email'])
 
-        return render_template('welcome.html', logged_club=logged_club, clubs=clubs)
+        return render_template('welcome.html',
+                               logged_club=logged_club,
+                               clubs=clubs)
 
     @app.route('/showSummary', methods=['GET'])
     @login_required
@@ -103,6 +106,7 @@ def create_app(config):
         return redirect(url_for('index'))
 
     return app
+
 
 app = create_app({"TESTING": False})
 
