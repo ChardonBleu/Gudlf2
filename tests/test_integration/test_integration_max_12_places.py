@@ -59,4 +59,4 @@ def test_purchase_places_with_update_points(client, mocker, competition_one,
     template5, context5 = captured_templates[4]
     assert template5.name == "competitions.html"
     assert context5['competition'][
-          'numberOfPlaces'] == initial_competition_places - booked_places
+           'numberOfPlaces'] == initial_competition_places - booked_places
