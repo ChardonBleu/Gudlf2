@@ -9,9 +9,9 @@ from tests.fixtures import competitions, club_one, clubs
 @pytest.fixture
 def app(mocker, competitions, clubs):
     mocker.patch('server.load_competitions',
-                     return_value=competitions)
+                 return_value=competitions)
     mocker.patch('server.load_clubs',
-                     return_value=clubs)
+                 return_value=clubs)
     app = create_app({"TESTING": True})
     return app
 
@@ -24,14 +24,15 @@ def client(app):
 
 @pytest.fixture
 def logged_client(app, mocker, club_one):
-    with app.test_client() as client:        
+    with app.test_client() as client:
         mocker.patch('server.research_club_in_clubs_by_email',
                      return_value=club_one)
-        
+
         client.post('/login',
                     data={'email': 'club_test1_name'},
                     follow_redirects=True)
         yield client
+
 
 @pytest.fixture
 def captured_templates(app):
@@ -45,5 +46,3 @@ def captured_templates(app):
         yield recorded
     finally:
         template_rendered.disconnect(record, app)
-
-

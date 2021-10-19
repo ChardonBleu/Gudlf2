@@ -10,32 +10,14 @@ from utilities.decorators import login_required
 
 BOOKING_PLACES_MULTIPLICATOR = 1
 
+
 def create_app(config):
 
     app = Flask(__name__)
     app.config.from_object("config")
 
-    print('*********', app.config['SERVER_NAME'], '************')
-    
-    if app.config['TESTING']:
-        competitions = [{"name": "Compet du printemps",
-                     "date": "2040-04-01 10:00:00",
-                     "numberOfPlaces": "10"},
-                    {"name": "Compet des gros costauds",
-                     "date": "2035-08-15 13:30:00",
-                     "numberOfPlaces": "18"},
-                    {"name": "Compet des vieux balèzes",
-                     "date": "2018-08-15 13:30:00",
-                     "numberOfPlaces": "23"}]
-        clubs = [{'name': 'club_test1_name',
-              'email': 'club_test1@mail.com',
-              'points': '15'},
-             {'name': 'club_test2_name',
-              'email': 'club_test2@mail.com',
-              'points': '8'}]
-    else:
-        competitions = load_competitions()
-        clubs = load_clubs()        
+    competitions = load_competitions()
+    clubs = load_clubs()
 
     @app.route('/')
     @app.route('/index')
@@ -72,7 +54,9 @@ def create_app(config):
         """
         logged_club = research_club_in_clubs_by_email(clubs, session['email'])
 
-        return render_template('welcome.html', logged_club=logged_club, clubs=clubs)
+        return render_template('welcome.html',
+                               logged_club=logged_club,
+                               clubs=clubs)
 
     @app.route('/showSummary', methods=['GET'])
     @login_required
@@ -122,6 +106,7 @@ def create_app(config):
         return redirect(url_for('index'))
 
     return app
+
 
 app = create_app({"TESTING": False})
 
