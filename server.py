@@ -87,7 +87,7 @@ def create_app(config):
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
         competition['numberOfPlaces'] = int(competition[
-            'numberOfPlaces'])-placesRequired
+            'numberOfPlaces']) - placesRequired
         flash('Great-booking complete!')
         return render_template('welcome.html',
                                club=club,
