@@ -1,3 +1,4 @@
+from server import BOOKING_PLACES_MULTIPLICATOR
 from tests.fixtures import club_one, competition_one
 
 
@@ -50,4 +51,5 @@ def test_purchase_places_with_update_points(client, mocker,
                            follow_redirects=True)
     template4, context4 = captured_templates[3]
     assert template4.name == "competitions.html"
-    assert context4['club']['points'] == initial_points_club - booked_places
+    assert context4['club']['points'] == initial_points_club - \
+        booked_places * BOOKING_PLACES_MULTIPLICATOR

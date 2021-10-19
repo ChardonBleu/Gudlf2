@@ -7,28 +7,6 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-CLUBS = [{'name': 'club_test1_name',
-          'email': 'club_test1@mail.com',
-          'points': '15'},
-         {'name': 'club_test2_name',
-          'email': 'club_test2@mail.com',
-          'points': '8'}]
-
-CLUB_ONE = {'name': 'club_test1_name',
-            'email': 'club_test1@mail.com',
-            'points': '15'}
-
-COMPETITIONS = [{"name": "Compet du printemps",
-                 "date": "2040-04-01 10:00:00",
-                 "numberOfPlaces": "10"},
-                {"name": "Compet des gros costauds",
-                 "date": "2035-08-15 13:30:00",
-                 "numberOfPlaces": "18"},
-                {"name": "Compet des vieux balèzes",
-                 "date": "2018-08-15 13:30:00",
-                 "numberOfPlaces": "23"}]
-
-
 @pytest.fixture(scope="session", autouse=True)
 def live_server():
     """Live server for selenium testing on WINDOWS.
