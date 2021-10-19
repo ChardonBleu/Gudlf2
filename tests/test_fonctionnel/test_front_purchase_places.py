@@ -50,7 +50,7 @@ def test_purchase_places():
     points_club_before = driver.find_element_by_id('points').text
     assert points_club_before == 'Points available: 13'
     time.sleep(2)
-    driver.find_elements_by_link_text('Book Places')[0].click()
+    driver.find_elements_by_id('book')[0].click()
     time.sleep(2)
     places = driver.find_element_by_name('places')
     places.send_keys('2')
