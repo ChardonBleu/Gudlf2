@@ -8,7 +8,7 @@ from utilities.datas import research_competition_in_competitions_by_name
 from utilities.decorators import login_required
 
 
-BOOKING_PLACES_MULTIPLICATOR = 3
+BOOKING_PLACES_MULTIPLICATOR = 1
 
 
 def create_app(config):
