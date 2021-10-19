@@ -82,20 +82,25 @@ def create_app(config):
                                    club=found_club,
                                    competitions=competitions)
 
-    @app.route('/purchasePlaces',methods=['POST'])
+    @app.route('/purchasePlaces', methods=['POST'])
     def purchasePlaces():
-        competition = [c for c in competitions if c['name'] == request.form['competition']][0]
+        competition = [c for c in competitions if c['name'] == request.form[
+            'competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
-        competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
+        competition['numberOfPlaces'] = int(competition[
+            'numberOfPlaces'])-placesRequired
         flash('Great-booking complete!')
-        return render_template('welcome.html', club=club, competitions=competitions)
+        return render_template('welcome.html',
+                               club=club,
+                               competitions=competitions)
 
     @app.route('/logout')
     def logout():
         return redirect(url_for('index'))
 
     return app
+
 
 app = create_app({"TESTING": False})
 
