@@ -104,7 +104,7 @@ def create_app(config):
             competition['numberOfPlaces']) - placesRequired
         flash('Great-booking complete!')
         return render_template('competitions.html',
-                               club=c
+                               club=club,
                                competitions=competitions)
 
     @app.route('/logout')
