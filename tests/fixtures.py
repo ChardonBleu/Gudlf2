@@ -45,6 +45,6 @@ def competition_one():
 @pytest.fixture
 def competition_past():
     competition_past = {"name": "Compet des vieux balèzes",
-                       "date": "2018-08-15 13:30:00",
-                       "numberOfPlaces": "23"}
+                        "date": "2018-08-15 13:30:00",
+                        "numberOfPlaces": "23"}
     return competition_past
