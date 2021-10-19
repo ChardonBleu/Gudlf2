@@ -11,7 +11,7 @@ from utilities.decorators import login_required
 
 
 def create_app(config):
-    
+
     app = Flask(__name__)
     app.config.from_object("config")
     app.config["Testing"] = False
@@ -96,16 +96,15 @@ def create_app(config):
     @app.route('/purchasePlaces', methods=['POST'])
     @login_required
     def purchasePlaces():
-        competition = [
-            c for c in competitions if c['name'] == request.form['competition']
-            ][0]
+        competition = [c for c in competitions if c[
+            'name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
         competition['numberOfPlaces'] = int(
             competition['numberOfPlaces']) - placesRequired
         flash('Great-booking complete!')
         return render_template('competitions.html',
-                               club=club,
+                               club=c
                                competitions=competitions)
 
     @app.route('/logout')
