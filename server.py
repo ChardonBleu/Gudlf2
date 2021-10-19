@@ -11,7 +11,7 @@ from utilities.decorators import login_required
 
 
 def create_app(config):
-
+    
     app = Flask(__name__)
     app.config.from_object("config")
     app.config["Testing"] = False
