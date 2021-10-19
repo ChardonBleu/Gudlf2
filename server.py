@@ -90,14 +90,14 @@ def create_app(config):
         competition = research_competition_in_competitions_by_name(
             competitions, request.form['competition'])
         club = research_club_in_clubs_by_name(clubs, request.form['club'])
-        placesRequired = int(request.form['places'])
+        placesRequired = int(request.form['places'])             
         if placesRequired * BOOKING_PLACES_MULTIPLICATOR > int(club['points']):
             flash('Not enough points available. Sorry.')
             return render_template('booking.html',
                                    club=club,
                                    competition=competition)
         elif placesRequired > int(competition['numberOfPlaces']):
-            flash('Not enough places avalaible. Sorry')
+            flash('Not enough places available. Sorry')
             return render_template('booking.html',
                                    club=club,
                                    competition=competition)
