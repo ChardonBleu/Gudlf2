@@ -52,7 +52,9 @@ def create_app(config):
         """
         logged_club = research_club_in_clubs_by_email(clubs, session['email'])
 
-        return render_template('welcome.html', logged_club=logged_club, clubs=clubs)
+        return render_template('welcome.html',
+                               logged_club=logged_club,
+                               clubs=clubs)
 
     @app.route('/showSummary', methods=['GET'])
     @login_required
@@ -86,15 +88,16 @@ def create_app(config):
         competition = research_competition_in_competitions_by_name(
             competitions, request.form['competition'])
         club = research_club_in_clubs_by_name(clubs, request.form['club'])
-        
+
         placesRequired = int(request.form['places'])
         if placesRequired > 0 and placesRequired <= 12:
-            competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
+            competition['numberOfPlaces'] = int(competition[
+                'numberOfPlaces']) - placesRequired
             flash('Great-booking complete!')
             return render_template('competitions.html',
-                                club=club,
-                                competitions=competitions,
-                                competition=competition)
+                                   club=club,
+                                   competitions=competitions,
+                                   competition=competition)
         else:
             flash("You can only book places between 0 ans 12.")
             return render_template('booking.html',
@@ -107,6 +110,7 @@ def create_app(config):
         return redirect(url_for('index'))
 
     return app
+
 
 app = create_app({"TESTING": False})
 
