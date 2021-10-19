@@ -1,4 +1,4 @@
-from tests.fixtures import club_one, competition_one
+from tests.fixtures import club_max, competition_max, club_one, competition_one
 
 
 def test_update_numberofplaces(logged_client, mocker, competition_one,
@@ -37,14 +37,14 @@ def test_update_numberofplaces(logged_client, mocker, competition_one,
 
 
 def test_no_more_than_12_places_booked(logged_client, mocker,
-                                       competition_one, club_one):
+                                       competition_max, club_max):
     """The competition test list is :
-    [{"name": "Compet du printemps",
-                     "date": "2040-04-01 10:00:00",
-                     "numberOfPlaces": "10"},
-                    {"name": "Compet des gros costauds",
-                     "date": "2035-08-15 13:30:00",
-                     "numberOfPlaces": "18"}]
+    [{'name': 'club_test_max_name',
+      'email': 'club_test_max@mail.com',
+      'points': '50'},
+    {"name": "Compet des vieux balèzes",
+     "date": "2018-08-15 13:30:00",
+     "numberOfPlaces": "23"}]
     the test book 4 places to "compet du printemps".
     It mights remain 6 places in "compet du printemps".
 
@@ -56,9 +56,9 @@ def test_no_more_than_12_places_booked(logged_client, mocker,
         captured_templates  -- fixture for capture of rendered templates
     """
     mocker.patch('server.research_competition_in_competitions_by_name',
-                 return_value=competition_one)
+                 return_value=competition_max)
     mocker.patch('server.research_club_in_clubs_by_name',
-                 return_value=club_one)
+                 return_value=club_max)
 
     response = logged_client.post('/purchasePlaces',
                                   data={'competition': "Compet du printemps",
