@@ -32,4 +32,4 @@ def test_three_points_per_place(logged_client, mocker, competition_one,
     assert response.status_code == 200
     assert len(captured_templates) == 1
     template, context = captured_templates[0]
-    assert context['club']['points'] == (15 - 4 * BOOKING_PLACES_MULTIPLICATOR)
+    assert context['club']['points'] == 15 - 4 * BOOKING_PLACES_MULTIPLICATOR

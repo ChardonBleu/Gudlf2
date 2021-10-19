@@ -54,5 +54,5 @@ def test_purchase_places_with_update_points(client, mocker,
                            follow_redirects=True)
     template4, context4 = captured_templates[3]
     assert template4.name == "competitions.html"
-    assert context4['club']['points'] == int(
-        15 - booked_places * BOOKING_PLACES_MULTIPLICATOR)
+    assert context4['club']['points'] == 15 - \
+        booked_places * BOOKING_PLACES_MULTIPLICATOR
