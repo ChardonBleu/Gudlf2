@@ -1,4 +1,4 @@
-from tests.fixtures import club_one, competition_one
+from tests.fixtures import club_one, competition_one, club_max
 from server import BOOKING_PLACES_MULTIPLICATOR
 
 
@@ -8,9 +8,7 @@ def test_book_more_than_points_club(logged_client, mocker,
     {'name': 'club_test1_name',
                 'email': 'club_test1@mail.com',
                 'points': '15'}
-    the test book 4 places to "compet du printemps".
-    It mights remain 11 places in poinst club.
-
+    
     Arguments:
         logged_client {test_client} -- client connecté
         mocker {mocking fixture} -- use to mock club and competition
@@ -61,7 +59,7 @@ def test_booking_ok(logged_client, mocker, competition_one,
 
 
 def test_book_more_than_competition_places(logged_client, mocker,
-                                           competition_one, club_one):
+                                           competition_one, club_max):
     """The logged club test list is :
     {'name': 'club_test1_name',
                 'email': 'club_test1@mail.com',
@@ -82,11 +80,11 @@ def test_book_more_than_competition_places(logged_client, mocker,
     mocker.patch('server.research_competition_in_competitions_by_name',
                  return_value=competition_one)
     mocker.patch('server.research_club_in_clubs_by_name',
-                 return_value=club_one)
+                 return_value=club_max)
 
     response = logged_client.post('/purchasePlaces',
                                   data={'competition': "Compet du printemps",
                                         'club': 'club_test1_name',
                                         'places': '11'})
     assert response.status_code == 200
-    assert b'Not enough places avalaible. Sorry' in response.data
+    assert b'Not enough places available. Sorry' in response.data
