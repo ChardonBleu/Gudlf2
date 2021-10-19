@@ -102,9 +102,10 @@ def create_app(config):
                                    club=club,
                                    competition=competition)
         else:
-            competition['numberOfPlaces'] = str(int(
-                competition['numberOfPlaces']) - placesRequired)
-            club['points'] = str(int(club['points']) - placesRequired)
+            competition['numberOfPlaces'] = int(
+                competition['numberOfPlaces']) - placesRequired
+            club['points'] = int(club[
+                'points']) - placesRequired * BOOKING_PLACES_MULTIPLICATOR
             flash('Great-booking complete!')
             return render_template('competitions.html',
                                    club=club,
