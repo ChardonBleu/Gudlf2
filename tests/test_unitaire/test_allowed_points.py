@@ -8,7 +8,7 @@ def test_book_more_than_points_club(logged_client, mocker,
     {'name': 'club_test1_name',
                 'email': 'club_test1@mail.com',
                 'points': '15'}
-    
+
     Arguments:
         logged_client {test_client} -- client connecté
         mocker {mocking fixture} -- use to mock club and competition
