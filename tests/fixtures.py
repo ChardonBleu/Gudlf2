@@ -21,6 +21,14 @@ def club_one():
 
 
 @pytest.fixture
+def club_max():
+    club_max = {'name': 'club_test_max_name',
+                'email': 'club_test_max@mail.com',
+                'points': '50'}
+    return club_max
+
+
+@pytest.fixture
 def competitions():
     competitions = [{"name": "Compet du printemps",
                      "date": "2040-04-01 10:00:00",
@@ -40,6 +48,14 @@ def competition_one():
                        "date": "2040-04-01 10:00:00",
                        "numberOfPlaces": "10"}
     return competition_one
+
+
+@pytest.fixture
+def competition_max():
+    competition_max = {"name": "Compet des vieux balèzes",
+                       "date": "2018-08-15 13:30:00",
+                       "numberOfPlaces": "23"}
+    return competition_max
 
 
 @pytest.fixture
