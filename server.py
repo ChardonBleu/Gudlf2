@@ -54,7 +54,9 @@ def create_app(config):
         """
         logged_club = research_club_in_clubs_by_email(clubs, session['email'])
 
-        return render_template('welcome.html', logged_club=logged_club, clubs=clubs)
+        return render_template('welcome.html',
+                               logged_club=logged_club,
+                               clubs=clubs)
 
     @app.route('/showSummary', methods=['GET'])
     @login_required
@@ -70,21 +72,21 @@ def create_app(config):
     def book(competition_name, club_name):
         found_club = research_club_in_clubs_by_name(clubs, club_name)
         found_competition = research_competition_in_competitions_by_name(
-            competitions, competition_name)        
-                
+            competitions, competition_name)
+
         if found_club and found_competition:
             date_time_found_competition = datetime.strptime(
-            found_competition['date'], '%Y-%m-%d %H:%M:%S')
+                found_competition['date'], '%Y-%m-%d %H:%M:%S')
             if date_time_found_competition > datetime.now():
                 flash('You can book for this future competition.')
                 return render_template('booking.html',
-                                    club=found_club,
-                                    competition=found_competition)
+                                       club=found_club,
+                                       competition=found_competition)
             else:
                 flash('This competition is passed. Choice another.')
                 return render_template('competitions.html',
-                                   club=found_club,
-                                   competitions=competitions)
+                                       club=found_club,
+                                       competitions=competitions)
         else:
             flash("Something went wrong-please try again")
             return render_template('competitions.html',
@@ -112,6 +114,7 @@ def create_app(config):
         return redirect(url_for('index'))
 
     return app
+
 
 app = create_app({"TESTING": False})
 
