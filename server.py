@@ -12,7 +12,6 @@ def create_app(config):
 
     app = Flask(__name__)
     app.config.from_object("config")
-    app.config["Testing"] = False
 
     competitions = load_competitions()
     clubs = load_clubs()
@@ -21,7 +20,7 @@ def create_app(config):
     @app.route('/index')
     def index():
 
-        return render_template('index.html')
+        return render_template('index.html', clubs=clubs)
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
@@ -45,7 +44,7 @@ def create_app(config):
     @app.route('/welcome', methods=['GET'])
     @login_required
     def welcome():
-        """It's necessary to be logged to acces this page
+        """It's necessary to be logged to acces this
 
         Returns:
             [type] -- welcome page with points club display
@@ -89,10 +88,10 @@ def create_app(config):
             'name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
-        competition['numberOfPlaces'] = int(competition[
-            'numberOfPlaces']) - placesRequired
+        competition['numberOfPlaces'] = int(competition['numberOfPlaces'])
+        -placesRequired
         flash('Great-booking complete!')
-        return render_template('welcome.html',
+        return render_template('competitions.html',
                                club=club,
                                competitions=competitions)
 
