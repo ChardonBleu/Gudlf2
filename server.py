@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask, render_template, request, redirect
 from flask import flash, url_for, session
 
@@ -72,9 +74,18 @@ def create_app(config):
             competitions, competition_name)
 
         if found_club and found_competition:
-            return render_template('booking.html',
-                                   club=found_club,
-                                   competition=found_competition)
+            date_time_found_competition = datetime.strptime(
+                found_competition['date'], '%Y-%m-%d %H:%M:%S')
+            if date_time_found_competition > datetime.now():
+                flash('You can book for this future competition.')
+                return render_template('booking.html',
+                                       club=found_club,
+                                       competition=found_competition)
+            else:
+                flash('This competition is passed. Choice another.')
+                return render_template('competitions.html',
+                                       club=found_club,
+                                       competitions=competitions)
         else:
             flash("Something went wrong-please try again")
             return render_template('competitions.html',
@@ -88,8 +99,8 @@ def create_app(config):
             'name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
-        competition['numberOfPlaces'] = int(competition['numberOfPlaces'])
-        -placesRequired
+        competition['numberOfPlaces'] = int(
+            competition['numberOfPlaces']) - placesRequired
         flash('Great-booking complete!')
         return render_template('competitions.html',
                                club=club,
