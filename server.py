@@ -44,7 +44,7 @@ def create_app(config):
     @app.route('/welcome', methods=['GET'])
     @login_required
     def welcome():
-        """It's necessary to be logged to acces this
+        """It's necessary to be logged to acces this page
 
         Returns:
             [type] -- welcome page with points club display
