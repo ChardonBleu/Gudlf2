@@ -10,6 +10,9 @@ from utilities.datas import research_competition_in_competitions_by_name
 from utilities.decorators import login_required
 
 
+BOOKING_PLACES_MULTIPLICATOR = 1
+
+
 def create_app(config):
 
     app = Flask(__name__)
@@ -95,16 +98,19 @@ def create_app(config):
     @app.route('/purchasePlaces', methods=['POST'])
     @login_required
     def purchasePlaces():
-        competition = [c for c in competitions if c[
-            'name'] == request.form['competition']][0]
-        club = [c for c in clubs if c['name'] == request.form['club']][0]
+        competition = research_competition_in_competitions_by_name(
+            competitions, request.form['competition'])
+        club = research_club_in_clubs_by_name(clubs, request.form['club'])
         placesRequired = int(request.form['places'])
         competition['numberOfPlaces'] = int(
             competition['numberOfPlaces']) - placesRequired
+        club['points'] = int(club[
+            'points']) - placesRequired * BOOKING_PLACES_MULTIPLICATOR
         flash('Great-booking complete!')
         return render_template('competitions.html',
                                club=club,
-                               competitions=competitions)
+                               competitions=competitions,
+                               competition=competition)
 
     @app.route('/logout')
     def logout():
